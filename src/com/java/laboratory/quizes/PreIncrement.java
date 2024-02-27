@@ -8,6 +8,6 @@ public class PreIncrement {
         */
         int i=2;
         System.out.println("Pre-Increment");
-        System.out.println(3*++i);
+        System.out.println(3*++i*3); //27
     }
 }
