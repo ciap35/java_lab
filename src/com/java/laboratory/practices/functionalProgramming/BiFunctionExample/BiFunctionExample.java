@@ -24,6 +24,10 @@ public class BiFunctionExample {
         // Print results
         System.out.println("People from 30 years old:");
         System.out.println(nameListFunction.apply(adultsFiltered));
+
+        //Combining Functions.
+        BiFunction<List<Person>,Integer, String> nameOfAdults = ageFilterBiFunction.andThen(nameListFunction);
+        System.out.println("Name of Adult people over 18 years old: \n"+ nameOfAdults.apply(personList,18));
     }
 
     /**
