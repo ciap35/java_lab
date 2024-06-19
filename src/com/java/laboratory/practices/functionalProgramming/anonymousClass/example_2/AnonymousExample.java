@@ -1,4 +1,4 @@
-package com.java.laboratory.practices.AnonymousClass;
+package com.java.laboratory.practices.functionalProgramming.anonymousClass.example_2;
 
 public class AnonymousExample {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.java.laboratory.practices.AnonymousClass;
+package com.java.laboratory.practices.functionalProgramming.anonymousClass.example_2;
 
 public class HigherFunction {
 
@@ -9,6 +9,8 @@ public class HigherFunction {
     }
     public static void main(String[] args) {
         int radio = 5;
+
+        /*Anonymous class*/
         GeometricShape instanceOfAnonymousClass = new GeometricShape() {
             @Override
             public double calculateArea(int radio) {
@@ -20,6 +22,7 @@ public class HigherFunction {
                 return Math.PI * radio;
             }
         };
+
         showResult(instanceOfAnonymousClass,radio);
     }
 }
