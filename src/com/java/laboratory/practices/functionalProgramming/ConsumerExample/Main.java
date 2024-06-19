@@ -17,7 +17,7 @@ public class Main {
         //Create consumer
         Consumer<Person> printJob = printDateProcess();
         //process
-        process(personList,printJob);
+        process(personList,printJob.andThen(printEndOfJob()));
 
 
     }
@@ -39,6 +39,19 @@ public class Main {
             @Override
             public void accept(Person person) {
                 System.out.println(ConsoleTextColour.ANSI_YELLOW.getColour()+ " PROCESSED AT: "+ LocalDateTime.now()+ " " + ConsoleTextColour.ANSI_CYAN.getColour()+ person+ConsoleTextColour.ANSI_RESET.getColour());
+            }
+        };
+    }
+
+    static Consumer<Person> printEndOfJob(){
+        /*
+        if the consumer only has one line.
+        Consumer<Person> print = System.out::println;
+        */
+        return new Consumer<Person>() {
+            @Override
+            public void accept(Person person) {
+                System.out.println(ConsoleTextColour.ANSI_GREEN.getColour()+"THE JOB HAD FINISH"+ConsoleTextColour.ANSI_RESET.getColour());
             }
         };
     }
