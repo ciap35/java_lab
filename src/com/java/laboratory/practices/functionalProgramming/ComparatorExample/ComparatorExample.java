@@ -1,5 +1,7 @@
-package com.java.laboratory.practices.interfacePractice.ComparatorExample;
+package com.java.laboratory.practices.functionalProgramming.ComparatorExample;
 
+
+import com.java.laboratory.practices.functionalProgramming.dto.Person;
 
 import java.util.Comparator;
 public class ComparatorExample implements Comparator<Person> {

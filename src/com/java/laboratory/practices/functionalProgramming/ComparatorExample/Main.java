@@ -1,4 +1,6 @@
-package com.java.laboratory.practices.interfacePractice.ComparatorExample;
+package com.java.laboratory.practices.functionalProgramming.ComparatorExample;
+
+import com.java.laboratory.practices.functionalProgramming.dto.Person;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +15,8 @@ public class Main {
         personList.add(new Person(34,"Luisa","11111111"));
         fromYoungest(personList);
         fromOldest(personList);
-
+        compareByNameAscending(personList);
+        compareByNameDescending(personList);
     }
 
 
@@ -61,6 +64,25 @@ public class Main {
         }
         System.out.println();
     }
+
+    public static void compareByNameAscending(List<Person> personList){
+        System.out.println("Main.compareByNameAscending");
+        Comparator<Person> compareByName = (p1,p2) -> p1.getName().compareTo(p2.getName());
+        personList.sort(compareByName);
+        
+        personList.forEach(p -> System.out.println("p = " + p));
+        System.out.println();
+    }
+
+    public static void compareByNameDescending(List<Person> personList){
+        System.out.println("Main.compareByNameDescending");
+        Comparator<Person> compareByName = (p1,p2) -> p2.getName().compareTo(p1.getName());
+        personList.sort(compareByName);
+
+        personList.forEach(p -> System.out.println("p = " + p));
+        System.out.println();
+    }
+
 
 
 
