@@ -1,5 +1,7 @@
 package com.java.laboratory.practices.functionalProgramming.dto;
 
+import java.util.Objects;
+
 public class Person {
     private int age;
     private String name;
@@ -56,5 +58,21 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", document='" + document + '\'' +
                 '}';
+    }
+    // Overriding hashCode method
+    /*@Override
+    public int hashCode() {
+        return Objects.hash(age, name, document, isMale());
+    }*/
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person person = (Person) obj;
+        return age == person.age &&
+                isMale() == person.isMale() &&
+                name.equals(person.name) &&
+                document.equals(person.document);
     }
 }
