@@ -1,5 +1,7 @@
 package dto.character;
 
+import java.util.Objects;
+
 public class Person {
     private String name;
     private String lastname;
@@ -51,5 +53,10 @@ public class Person {
             return person.name.equals(this.name) && person.lastname.equals(this.lastname)&&person.sex.equals(this.sex);
         }
         return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastname, sex);
     }
 }

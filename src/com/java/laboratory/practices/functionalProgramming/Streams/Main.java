@@ -2,6 +2,8 @@ package com.java.laboratory.practices.functionalProgramming.Streams;
 
 import com.java.laboratory.practices.functionalProgramming.dto.Person;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,6 +13,10 @@ public class Main {
     public static void main(String[] args) {
         // Create personList
         personList = createPersonList();
+        arrayToList();
+        toArray();
+        mapToListUsingValues();
+        mapToListUsingKeysAndValues();
         filter(personList);
         map(personList);
         filterAndMapAgeAndName(personList);
@@ -42,6 +48,10 @@ public class Main {
         min(personList);
         max(personList);
         average(personList);
+
+
+        /*Working with Files*/
+        workingWithFiles();
 
     }
 
@@ -247,7 +257,7 @@ public class Main {
         System.out.println();
     }
 
-    /*Reducciones predefinidas*/
+    /*Predefined reductions*/
     static void findAny(List<Person> personList){
         System.out.println("Main.findAny");
         System.out.println("==============================");
@@ -354,5 +364,144 @@ public class Main {
         System.out.println("==============================");
         System.out.println();
     }
+
+    static void arrayToList(){
+        System.out.println("Main.arrayToList");
+        System.out.println("==============================");
+        Person[] arrayPeople = new Person[6];
+        arrayPeople[0] = new Person(18,"Charles","123456");
+        arrayPeople[1] = new Person(18,"Nacho","123456");
+        arrayPeople[2] = new Person(18,"Francisco","123456");
+        arrayPeople[3] = new Person(18,"Carla","123456",true);
+        arrayPeople[4] = new Person(18,"Melissa","123456",true);
+        arrayPeople[5] = new Person(18,"Sonia","123456",true);
+
+        List<Person> peopleList = Arrays.stream(arrayPeople).toList();
+        peopleList.forEach(System.out::println);
+
+        System.out.println("==============================");
+        System.out.println();
+    }
+
+    static void toArray(){
+        System.out.println("Main.toArray");
+        System.out.println("==============================");
+        Person[] arrayPeople = new Person[6];
+        arrayPeople[0] = new Person(18,"Charles","123456");
+        arrayPeople[1] = new Person(18,"Nacho","123456");
+        arrayPeople[2] = new Person(18,"Francisco","123456");
+        arrayPeople[3] = new Person(18,"Carla","123456",true);
+        arrayPeople[4] = new Person(18,"Melissa","123456",true);
+        arrayPeople[5] = new Person(18,"Sonia","123456",true);
+
+
+        //Valid solution 1 declaring size of the new array
+        //Person[] adults = Arrays.stream(arrayPeople).filter(p->p.getAge()>=18).toArray(arrSize -> new Person[arrSize]);
+        //Valid solution 2 using lambda expression
+        Person[] adults = Arrays.stream(arrayPeople).filter(p->p.getAge()>=18).toArray(Person[]::new);
+        Arrays.stream(adults).forEach(System.out::println);
+
+        System.out.println("==============================");
+        System.out.println();
+    }
+
+    static void mapToListUsingValues(){
+        System.out.println("Main.mapToList");
+        System.out.println("==============================");
+
+
+        Map<String,Person> peopleMap = new HashMap<>();
+        peopleMap.put("123456",new Person(18,"Charles","123456"));
+        //HashMap doesn't allow duplicated entries
+        /*peopleMap.put("123456",new Person(18,"Nacho","123456"));
+        peopleMap.put("123456",new Person(18,"Francisco","123456"));
+        peopleMap.put("123456",new Person(18,"Carla","123456",true));
+        peopleMap.put("123456",new Person(18,"Melissa","123456",true));
+        peopleMap.put("123456",new Person(18,"Sonia","123456",true));
+*/
+        peopleMap.put("223456",new Person(18,"Nacho","123456"));
+        peopleMap.put("323456",new Person(18,"Francisco","123456"));
+        peopleMap.put("423456",new Person(18,"Carla","123456",true));
+        peopleMap.put("523456",new Person(18,"Melissa","123456",true));
+        peopleMap.put("623456",new Person(18,"Sonia","123456",true));
+
+        List<Person> peopleLst = peopleMap.values().stream().toList();
+        peopleLst.stream().sorted((x, y) -> x.getName().compareTo(y.getName())).forEach(System.out::println);
+
+        System.out.println("==============================");
+        System.out.println();
+
+
+    }
+
+    static void mapToListUsingKeysAndValues(){
+        System.out.println("Main.mapToListUsingKeysAndValues");
+        System.out.println("==============================");
+
+
+        //HashMap doesn't allow duplicated entries
+        //Order is not guaranteed
+        Map<String,Person> peopleMap = new HashMap<>();
+        peopleMap.put("123456",new Person(18,"Charles","123456"));
+        peopleMap.put("223456",new Person(18,"Nacho","123456"));
+        peopleMap.put("323456",new Person(18,"Francisco","123456"));
+        peopleMap.put("423456",new Person(18,"Carla","123456",true));
+        peopleMap.put("523456",new Person(18,"Melissa","123456",true));
+        peopleMap.put("623456",new Person(18,"Sonia","123456",true));
+
+
+        //Create a list of String only with Keys which represents the ID of each person.
+        List<String> peopleLst = peopleMap
+                .entrySet()
+                .stream()
+                .filter(p->p.getValue().getAge()>=18)
+                .map(Map.Entry::getKey)
+                .sorted(String::compareTo)
+                //.collect(Collectors.toList());
+                .toList();
+
+        peopleLst.forEach(System.out::println);
+
+        System.out.println("==============================");
+        System.out.println();
+
+    }
+
+    static void workingWithFiles(){
+        try{
+            List<Person> peopleList = Files.lines(Paths.get("people.txt"))
+                    .map(l-> new Person(
+                            Integer.parseInt(l.split(":")[0]),
+                            l.split(":")[1],
+                            l.split(":")[2],
+                            Boolean.valueOf(l.split(":")[3])
+                            ))
+                    .collect(Collectors.toList());
+            System.out.println("People from file");
+            peopleList.forEach(System.out::println);
+
+
+            /*Generate
+            *
+            * */
+
+            peopleList.add(new Person(generateRandomDocument(18,99),"Joe",String.valueOf(generateRandomDocument(100000,999999)),false));
+
+            Files.write(Paths.get("people.txt"),
+                    peopleList.stream()
+                            .map(p->p.fileFormatting())
+                            .collect(Collectors.toList())
+            );
+
+        }catch (Exception e){
+            System.out.println("Error processing the file: "+e.getMessage());
+        }
+    }
+
+    private static int generateRandomDocument(int min,int max){
+        Random random = new Random();
+        return random.nextInt((max - min) + 1) + min;
+    }
+
 
 }

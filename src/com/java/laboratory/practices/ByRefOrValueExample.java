@@ -7,7 +7,8 @@ import java.util.Arrays;
 
 public class ByRefOrValueExample {
     public static void main(String[] args) throws CloneNotSupportedException {
-    int exampleValuePrimitive = 100;
+        /*
+        int exampleValuePrimitive = 100;
         incrementValuePrimitive(exampleValuePrimitive);
         System.out.println("exampleValuePrimitive after call method: "+ exampleValuePrimitive);
 
@@ -23,7 +24,7 @@ public class ByRefOrValueExample {
         System.out.println("motorcycle.getCylinders() = " + motorcycle.getCylinders());
         customize(motorcycle);
         System.out.println("motorcycle.getCylinders() after call customize method= " + motorcycle.getCylinders());
-
+*/
     }
 
     public static void incrementValuePrimitive(int value){

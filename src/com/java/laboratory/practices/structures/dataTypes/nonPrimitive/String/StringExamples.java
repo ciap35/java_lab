@@ -34,5 +34,15 @@ public class StringExamples {
         System.out.println();
         System.out.print("[ strValue3.ComparisonExamples(strValue4) ]:");
         System.out.print(strValue3.equals(strValue4)); //true
+
+
+        System.out.println();
+        String value = "Original value";
+        modifiyValue(value);
+        System.out.println(value);
+    }
+
+    public static void modifiyValue(String value){
+        value = "Modified value";
     }
 }

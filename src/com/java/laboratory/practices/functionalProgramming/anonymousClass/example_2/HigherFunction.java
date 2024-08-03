@@ -21,6 +21,11 @@ public class HigherFunction {
             public double calculatePerimeter(int radio) {
                 return Math.PI * radio;
             }
+
+            @Override
+            public void close(){
+                System.out.println("Cleaning the objects");
+            }
         };
 
         showResult(instanceOfAnonymousClass,radio);

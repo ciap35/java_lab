@@ -75,4 +75,8 @@ public class Person {
                 name.equals(person.name) &&
                 document.equals(person.document);
     }
+
+    public String fileFormatting(){
+        return age+":"+name+":"+document+":"+isMale();
+    }
 }
